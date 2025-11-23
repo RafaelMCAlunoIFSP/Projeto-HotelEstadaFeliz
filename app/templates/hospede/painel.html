@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Painel Pessoal | Hóspede{% endblock %}
+
+{% block content %}
+    <h1>Painel Pessoal (Hóspede)</h1>
+    <p>Bem-vindo(a), **{{ hospede.nome_completo }}**.</p>
+
+    {% if reserva_ativa %}
+        <div class="card">
+            <h2>Sua Reserva Ativa</h2>
+            <p><strong>Status:</strong> <span style="color: var(--cor-acao);">{{ reserva_ativa.status_reserva }}</span></p>
+            <p><strong>Quarto:</strong> {{ reserva_ativa.numero_quarto }}</p>
+            <p><strong>Check-in:</strong> {{ reserva_ativa.data_checkin.strftime('%d/%m/%Y') }}</p>
+            <p><strong>Check-out Previsto:</strong> {{ reserva_ativa.data_checkout.strftime('%d/%m/%Y') }}</p>
+            <p><strong>Valor Total Previsto:</strong> R$ {{ "{:,.2f}".format(reserva_ativa.valor_total) }}</p>
+            </div>
+
+        <div class="card">
+            <h2>Histórico de Faturas</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Fatura</th>
+                        <th>Emissão</th>
+                        <th>Valor Total</th>
+                        <th>Status Pagamento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for fatura in faturas %}
+                    <tr>
+                        <td>{{ fatura.id_fatura }}</td>
+                        <td>{{ fatura.data_emissao.strftime('%d/%m/%Y') }}</td>
+                        <td>R$ {{ "{:,.2f}".format(fatura.valor_servicos + fatura.valor_diarias) }}</td>
+                        <td>
+                            <span style="color: {% if fatura.status_pagamento == 'Pago' %}var(--cor-sucesso);{% else %}var(--cor-erro);{% endif %}; font-weight: bold;">
+                                {{ fatura.status_pagamento }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="card">
+            <p>Você não possui nenhuma reserva ativa ou confirmada no momento.</p>
+        </div>
+    {% endif %}
+
+{% endblock %}

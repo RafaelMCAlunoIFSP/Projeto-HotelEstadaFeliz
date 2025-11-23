@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Gerenciar Perfil{% endblock %}
+
+{% block content %}
+    <h1>{% if perfil %}Editar Perfil: {{ perfil.nome_perfil }}{% else %}Novo Perfil{% endif %}</h1>
+
+    <div class="card" style="max-width: 600px; margin-top: 20px;">
+        <form method="POST" action="{{ url_for('admin_bp.gerenciar_perfil', perfil_id=perfil.id if perfil else None) }}">
+            
+            <div style="margin-bottom: 20px;">
+                <label for="nome_perfil" style="display: block; margin-bottom: 5px;">Nome do Perfil:</label>
+                <input 
+                    type="text" 
+                    id="nome_perfil" 
+                    name="nome_perfil" 
+                    value="{{ perfil.nome_perfil if perfil else '' }}" 
+                    required 
+                    style="width: 100%; padding: 10px; box-sizing: border-box; background-color: #333; border: 1px solid var(--cor-destaque); color: var(--cor-texto);"
+                >
+            </div>
+            
+            <button type="submit" class="btn btn-primary">
+                {% if perfil %}Salvar Alterações{% else %}Criar Perfil{% endif %}
+            </button>
+            <a href="{{ url_for('admin_bp.listar_perfis') }}" class="btn" style="background-color: #555;">Cancelar</a>
+
+        </form>
+    </div>
+{% endblock %}

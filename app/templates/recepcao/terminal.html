@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Terminal Recepção{% endblock %}
+
+{% block content %}
+    <h1>Terminal de Check-in/out (Recepcionista) 🛎️</h1>
+
+    <div style="display: flex; gap: 20px;">
+        <div class="card" style="flex: 2;">
+            <h2>Reservas para Hoje</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Reserva</th>
+                        <th>Hóspede ID</th>
+                        <th>Quarto</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reserva in reservas_hoje %}
+                    <tr>
+                        <td>{{ reserva.id_reserva }}</td>
+                        <td>{{ reserva.id_hospede_principal }}</td>
+                        <td>{{ reserva.numero_quarto }}</td>
+                        <td>
+                            {% if reserva.status_reserva == 'Confirmada' %}
+                                <form method="POST" action="{{ url_for('recepcao_bp.realizar_checkin', reserva_id=reserva.id_reserva) }}" style="display: inline;">
+                                    <button type="submit" class="btn btn-primary">Check-in</button>
+                                </form>
+                            {% else %}
+                                {{ reserva.status_reserva }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="4">Nenhuma reserva para check-in hoje.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="card" style="flex: 1;">
+            <h2>Quartos Disponíveis (Limp)</h2>
+            <ul>
+                {% for quarto in quartos_disponiveis %}
+                <li style="list-style: none; padding: 5px; border-bottom: 1px solid #333;">Quarto **{{ quarto.numero_quarto }}**</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

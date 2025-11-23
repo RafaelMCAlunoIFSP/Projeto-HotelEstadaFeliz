@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Gerenciar Perfis{% endblock %}
+
+{% block content %}
+    <h1>Gerenciar Perfis</h1>
+    <p><a href="{{ url_for('admin_bp.gerenciar_perfil') }}" class="btn btn-primary" style="margin-bottom: 20px;">+ Novo Perfil</a></p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome do Perfil</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for perfil in perfis %}
+            <tr>
+                <td>{{ perfil.id }}</td>
+                <td>{{ perfil.nome_perfil }}</td>
+                <td>
+                    <a href="{{ url_for('admin_bp.gerenciar_perfil', perfil_id=perfil.id) }}" class="btn" style="background-color: var(--cor-link);">Editar</a>
+                    <form method="POST" action="{{ url_for('admin_bp.excluir_perfil', perfil_id=perfil.id) }}" style="display: inline;" onsubmit="return confirm('Tem certeza que deseja excluir o perfil {{ perfil.nome_perfil }}?');">
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

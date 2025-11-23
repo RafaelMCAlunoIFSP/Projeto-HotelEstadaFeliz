@@ -1,0 +1,126 @@
+:root {
+    --fundo-principal: #121212;
+    --fundo-secundario: #1e1e1e;
+    --cor-texto: #e0e0e0;
+    --cor-destaque: #6a1b9a;
+    --cor-acao: #9c27b0;
+    --cor-link: #4fc3f7;
+    --cor-sucesso: #4CAF50;
+    --cor-erro: #F44336;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--fundo-principal);
+    color: var(--cor-texto);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+h1, h2 {
+    color: var(--cor-destaque);
+    border-bottom: 2px solid var(--fundo-secundario);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+nav.main-nav {
+    background-color: #000;
+    padding: 10px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+nav.main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav.main-nav ul li a {
+    color: var(--cor-link);
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+nav.main-nav ul li a:hover {
+    background-color: var(--fundo-secundario);
+    color: var(--cor-acao);
+}
+
+.flash-message {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.flash-message.success {
+    background-color: rgba(76, 175, 80, 0.3);
+    border: 1px solid var(--cor-sucesso);
+    color: var(--cor-sucesso);
+}
+
+.flash-message.danger {
+    background-color: rgba(244, 67, 54, 0.3);
+    border: 1px solid var(--cor-erro);
+    color: var(--cor-erro);
+}
+
+.card, table {
+    background-color: var(--fundo-secundario);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+
+th {
+    background-color: var(--cor-destaque);
+    color: white;
+    text-transform: uppercase;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+.btn-primary {
+    background-color: var(--cor-acao);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--cor-destaque);
+}
+
+.btn-danger {
+    background-color: var(--cor-erro);
+    color: white;
+}

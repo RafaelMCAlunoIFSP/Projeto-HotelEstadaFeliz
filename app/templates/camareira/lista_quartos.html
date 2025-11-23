@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Controle de Limpeza | Camareira{% endblock %}
+
+{% block content %}
+    <h1>Controle de Limpeza (Camareira)</h1>
+    <p>Apenas quartos com status 'Sujo' ou 'Em Limpeza' requerem atenção.</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Quarto</th>
+                <th>Tipo</th>
+                <th>Localização</th>
+                <th>Status Atual</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for quarto in quartos %}
+            <tr>
+                <td>**{{ quarto.numero_quarto }}**</td>
+                <td>{{ quarto.tipo_quarto.nome_tipo if quarto.tipo_quarto else 'N/A' }}</td>
+                <td>{{ quarto.localizacao }}</td>
+                <td>
+                    <span style="
+                        font-weight: bold;
+                        padding: 5px 10px;
+                        border-radius: 5px;
+                        color: #121212;
+                        background-color: 
+                            {% if quarto.status_limpeza == 'Limp' %}var(--cor-sucesso);
+                            {% elif quarto.status_limpeza == 'Sujo' %}var(--cor-erro);
+                            {% else %}var(--cor-link);{% endif %}"
+                    >
+                        {{ quarto.status_limpeza }}
+                    </span>
+                </td>
+                <td>
+                    <form method="POST" action="{{ url_for('camareira_bp.atualizar_status', numero_quarto=quarto.numero_quarto) }}" style="display: inline;">
+                        
+                        <select name="novo_status" required style="padding: 8px; background-color: #333; color: var(--cor-texto); border: 1px solid var(--cor-acao);">
+                            <option value="Sujo" {% if quarto.status_limpeza == 'Sujo' %}selected{% endif %}>Sujo</option>
+                            <option value="Em Limpeza" {% if quarto.status_limpeza == 'Em Limpeza' %}selected{% endif %}>Em Limpeza</option>
+                            <option value="Limp" {% if quarto.status_limpeza == 'Limp' %}selected{% endif %}>Limp</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary" style="padding: 8px 12px;">Atualizar</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5">Nenhum quarto cadastrado.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
